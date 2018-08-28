@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Евгений Исупов](https://up.htmlacademy.ru/javascript/15/user/279077).
-* Наставник: `Неизвестно`.
+* Наставник: [Евгений Колегов](https://htmlacademy.ru/profile/id21780).
 
 ---
 
