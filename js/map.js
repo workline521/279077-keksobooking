@@ -1,168 +1,71 @@
 'use strict';
 
-var MAP_TEST = [
-  {
-    'author': 'img/avatars/user01.png, img/avatars/user02.png, img/avatars/user03.png, img/avatars/user04.png, img/avatars/user05.png, img/avatars/user06.png, img/avatars/user07.png, img/avatars/user08.png',
-    'offer': {
-      'title': 'Большая уютная квартира, Маленькая неуютная квартира, Огромный прекрасный дворец, Маленький ужасный дворец, Красивый гостевой домик, Некрасивый негостеприимный домик, Уютное бунгало далеко от моря, Неуютное бунгало по колено в воде',
-      'address': window.getRandomInteger(100, 600) + ', ' + window.getRandomInteger(100, 600),
-      'price': window.getRandomInteger(1000, 1000000),
-      'type': 'palace, flat, house, bungalo',
-      'rooms': window.getRandomInteger(1, 5),
-      'guests': window.getRandomInteger(1, 10),
-      'checkin': '12:00, 13:00, 14:00',
-      'checkout': '12:00, 13:00, 14:00',
-      'features': ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'],
-      'description': '',
-      'photos': ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg']
-    },
-    'location': {
-      x: window.getRandomInteger(0, 1150),
-      y: window.getRandomInteger(130, 630)
-    }
-  },
-  {
-    'author': 'img/avatars/user01.png, img/avatars/user02.png, img/avatars/user03.png, img/avatars/user04.png, img/avatars/user05.png, img/avatars/user06.png, img/avatars/user07.png, img/avatars/user08.png',
-    'offer': {
-      'title': 'Большая уютная квартира, Маленькая неуютная квартира, Огромный прекрасный дворец, Маленький ужасный дворец, Красивый гостевой домик, Некрасивый негостеприимный домик, Уютное бунгало далеко от моря, Неуютное бунгало по колено в воде',
-      'address': window.getRandomInteger(100, 600) + ', ' + window.getRandomInteger(100, 600),
-      'price': window.getRandomInteger(1000, 1000000),
-      'type': 'palace, flat, house, bungalo',
-      'rooms': window.getRandomInteger(1, 5),
-      'guests': window.getRandomInteger(1, 10),
-      'checkin': '12:00, 13:00, 14:00',
-      'checkout': '12:00, 13:00, 14:00',
-      'features': ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'],
-      'description': '',
-      'photos': ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg']
-    },
-    'location': {
-      x: window.getRandomInteger(0, 1150),
-      y: window.getRandomInteger(130, 630)
-    }
-  },
-  {
-    'author': 'img/avatars/user01.png, img/avatars/user02.png, img/avatars/user03.png, img/avatars/user04.png, img/avatars/user05.png, img/avatars/user06.png, img/avatars/user07.png, img/avatars/user08.png',
-    'offer': {
-      'title': 'Большая уютная квартира, Маленькая неуютная квартира, Огромный прекрасный дворец, Маленький ужасный дворец, Красивый гостевой домик, Некрасивый негостеприимный домик, Уютное бунгало далеко от моря, Неуютное бунгало по колено в воде',
-      'address': window.getRandomInteger(100, 600) + ', ' + window.getRandomInteger(100, 600),
-      'price': window.getRandomInteger(1000, 1000000),
-      'type': 'palace, flat, house, bungalo',
-      'rooms': window.getRandomInteger(1, 5),
-      'guests': window.getRandomInteger(1, 10),
-      'checkin': '12:00, 13:00, 14:00',
-      'checkout': '12:00, 13:00, 14:00',
-      'features': ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'],
-      'description': '',
-      'photos': ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg']
-    },
-    'location': {
-      x: window.getRandomInteger(0, 1150),
-      y: window.getRandomInteger(130, 630)
-    }
-  },
-  {
-    'author': 'img/avatars/user01.png, img/avatars/user02.png, img/avatars/user03.png, img/avatars/user04.png, img/avatars/user05.png, img/avatars/user06.png, img/avatars/user07.png, img/avatars/user08.png',
-    'offer': {
-      'title': 'Большая уютная квартира, Маленькая неуютная квартира, Огромный прекрасный дворец, Маленький ужасный дворец, Красивый гостевой домик, Некрасивый негостеприимный домик, Уютное бунгало далеко от моря, Неуютное бунгало по колено в воде',
-      'address': window.getRandomInteger(100, 600) + ', ' + window.getRandomInteger(100, 600),
-      'price': window.getRandomInteger(1000, 1000000),
-      'type': 'palace, flat, house, bungalo',
-      'rooms': window.getRandomInteger(1, 5),
-      'guests': window.getRandomInteger(1, 10),
-      'checkin': '12:00, 13:00, 14:00',
-      'checkout': '12:00, 13:00, 14:00',
-      'features': ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'],
-      'description': '',
-      'photos': ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg']
-    },
-    'location': {
-      x: window.getRandomInteger(0, 1150),
-      y: window.getRandomInteger(130, 630)
-    }
-  },
-  {
-    'author': 'img/avatars/user01.png, img/avatars/user02.png, img/avatars/user03.png, img/avatars/user04.png, img/avatars/user05.png, img/avatars/user06.png, img/avatars/user07.png, img/avatars/user08.png',
-    'offer': {
-      'title': 'Большая уютная квартира, Маленькая неуютная квартира, Огромный прекрасный дворец, Маленький ужасный дворец, Красивый гостевой домик, Некрасивый негостеприимный домик, Уютное бунгало далеко от моря, Неуютное бунгало по колено в воде',
-      'address': window.getRandomInteger(100, 600) + ', ' + window.getRandomInteger(100, 600),
-      'price': window.getRandomInteger(1000, 1000000),
-      'type': 'palace, flat, house, bungalo',
-      'rooms': window.getRandomInteger(1, 5),
-      'guests': window.getRandomInteger(1, 10),
-      'checkin': '12:00, 13:00, 14:00',
-      'checkout': '12:00, 13:00, 14:00',
-      'features': ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'],
-      'description': '',
-      'photos': ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg']
-    },
-    'location': {
-      x: window.getRandomInteger(0, 1150),
-      y: window.getRandomInteger(130, 630)
-    }
-  },
-  {
-    'author': 'img/avatars/user01.png, img/avatars/user02.png, img/avatars/user03.png, img/avatars/user04.png, img/avatars/user05.png, img/avatars/user06.png, img/avatars/user07.png, img/avatars/user08.png',
-    'offer': {
-      'title': 'Большая уютная квартира, Маленькая неуютная квартира, Огромный прекрасный дворец, Маленький ужасный дворец, Красивый гостевой домик, Некрасивый негостеприимный домик, Уютное бунгало далеко от моря, Неуютное бунгало по колено в воде',
-      'address': window.getRandomInteger(100, 600) + ', ' + window.getRandomInteger(100, 600),
-      'price': window.getRandomInteger(1000, 1000000),
-      'type': 'palace, flat, house, bungalo',
-      'rooms': window.getRandomInteger(1, 5),
-      'guests': window.getRandomInteger(1, 10),
-      'checkin': '12:00, 13:00, 14:00',
-      'checkout': '12:00, 13:00, 14:00',
-      'features': ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'],
-      'description': '',
-      'photos': ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg']
-    },
-    'location': {
-      x: window.getRandomInteger(0, 1150),
-      y: window.getRandomInteger(130, 630)
-    }
-  },
-  {
-    'author': 'img/avatars/user01.png, img/avatars/user02.png, img/avatars/user03.png, img/avatars/user04.png, img/avatars/user05.png, img/avatars/user06.png, img/avatars/user07.png, img/avatars/user08.png',
-    'offer': {
-      'title': 'Большая уютная квартира, Маленькая неуютная квартира, Огромный прекрасный дворец, Маленький ужасный дворец, Красивый гостевой домик, Некрасивый негостеприимный домик, Уютное бунгало далеко от моря, Неуютное бунгало по колено в воде',
-      'address': window.getRandomInteger(100, 600) + ', ' + window.getRandomInteger(100, 600),
-      'price': window.getRandomInteger(1000, 1000000),
-      'type': 'palace, flat, house, bungalo',
-      'rooms': window.getRandomInteger(1, 5),
-      'guests': window.getRandomInteger(1, 10),
-      'checkin': '12:00, 13:00, 14:00',
-      'checkout': '12:00, 13:00, 14:00',
-      'features': ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'],
-      'description': '',
-      'photos': ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg']
-    },
-    'location': {
-      x: window.getRandomInteger(0, 1150),
-      y: window.getRandomInteger(130, 630)
-    }
-  },
-  {
-    'author': 'img/avatars/user01.png, img/avatars/user02.png, img/avatars/user03.png, img/avatars/user04.png, img/avatars/user05.png, img/avatars/user06.png, img/avatars/user07.png, img/avatars/user08.png',
-    'offer': {
-      'title': 'Большая уютная квартира, Маленькая неуютная квартира, Огромный прекрасный дворец, Маленький ужасный дворец, Красивый гостевой домик, Некрасивый негостеприимный домик, Уютное бунгало далеко от моря, Неуютное бунгало по колено в воде',
-      'address': window.getRandomInteger(100, 600) + ', ' + window.getRandomInteger(100, 600),
-      'price': window.getRandomInteger(1000, 1000000),
-      'type': 'palace, flat, house, bungalo',
-      'rooms': window.getRandomInteger(1, 5),
-      'guests': window.getRandomInteger(1, 10),
-      'checkin': '12:00, 13:00, 14:00',
-      'checkout': '12:00, 13:00, 14:00',
-      'features': ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'],
-      'description': '',
-      'photos': ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg']
-    },
-    'location': {
-      x: window.getRandomInteger(0, 1150),
-      y: window.getRandomInteger(130, 630)
+var MAP_TEST = [];
+
+var transformStringToArray = function (string, separator) {
+  return string.split(separator);
+};
+
+var authorPictures = transformStringToArray('img/avatars/user01.png, img/avatars/user02.png, img/avatars/user03.png, img/avatars/user04.png, img/avatars/user05.png, img/avatars/user06.png, img/avatars/user07.png, img/avatars/user08.png', ', ');
+
+var titleName = transformStringToArray('Большая уютная квартира, Маленькая неуютная квартира, Огромный прекрасный дворец, Маленький ужасный дворец, Красивый гостевой домик, Некрасивый негостеприимный домик, Уютное бунгало далеко от моря, Неуютное бунгало по колено в воде', ', ');
+
+var apartmentsType = transformStringToArray('palace, flat, house, bungalo', ', ');
+
+var chekinTime = transformStringToArray('12:00, 13:00, 14:00', ', ');
+
+var availableFeatures = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
+
+var aparmentPictures = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
+
+var randomFeatures = [];
+
+var createRandomFeatures = function (newArray, oldArray, number) {
+  for (var m = 0; m < number; m++) {
+    var newFeature = oldArray[Math.floor(Math.random() * oldArray.length)];
+    if (newArray[m] !== newFeature) {
+      newArray[m] = newFeature;
     }
   }
+  return newArray;
+};
 
-];
+var createRandomPhoto = function () {
+  return Math.random() - 0.5;
+};
+
+
+var generateMapData = function (emptyArray) {
+  var cardTestData = {
+    author: {
+      avatar: authorPictures[window.getRandomInteger(0, authorPictures.length - 1)]
+    },
+    offer: {
+      title: titleName[window.getRandomInteger(0, titleName.length - 1)],
+      address: window.getRandomInteger(0, 1150) + ', ' + window.getRandomInteger(130, 630),
+      price: window.getRandomInteger(1000, 1000000),
+      type: apartmentsType[window.getRandomInteger(0, apartmentsType.length - 1)],
+      rooms: window.getRandomInteger(1, 5),
+      guests: window.getRandomInteger(1, 10),
+      checkin: chekinTime[window.getRandomInteger(0, chekinTime.length - 1)],
+      checkout: chekinTime[window.getRandomInteger(0, chekinTime.length - 1)],
+      features: createRandomFeatures(randomFeatures, availableFeatures, window.getRandomInteger(1, 5)),
+      description: '',
+      photos: aparmentPictures.sort(createRandomPhoto)
+    },
+    location: {
+      x: window.getRandomInteger(0, 1150),
+      y: window.getRandomInteger(130, 630)
+    }
+  };
+  emptyArray.push(cardTestData);
+
+  return emptyArray;
+};
+
+for (var index = 0; index < 8; index++) {
+  generateMapData(MAP_TEST);
+}
 
 var map = document.querySelector('.map');
 map.classList.remove('map--faded');
@@ -173,20 +76,20 @@ var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pi
 
 var fragment = document.createDocumentFragment();
 
-var renderPin = function (testPinArray) {
+var renderPins = function (mapTemplate) {
   var pinElement = pinTemplate.cloneNode(true);
-  pinElement.style.top = (testPinArray[i]['location']['y']) + 'px';
-  pinElement.style.left = (testPinArray[i]['location']['x']) + 'px';
-  var srcArray = testPinArray[i]['author'].split(', ');
-  var altArray = testPinArray[i]['offer']['title'].split(', ');
-  pinElement.querySelector('img').src = srcArray[window.getRandomInteger(0, srcArray.length - 1)];
-  pinElement.querySelector('img').alt = altArray[window.getRandomInteger(0, altArray.length - 1)];
+  pinElement.style.top = mapTemplate.location.y + 'px';
+  pinElement.style.left = mapTemplate.location.x + 'px';
+  pinElement.querySelector('img').src = mapTemplate.author.avatar;
+  pinElement.querySelector('img').alt = mapTemplate.offer.title;
   return pinElement;
 };
 
-for (var i = 0; i <= MAP_TEST.length - 1; i++) {
-  fragment.appendChild(renderPin(MAP_TEST));
+for (var i = 0; i < MAP_TEST.length; i++) {
+  fragment.appendChild(renderPins(MAP_TEST[i]));
+
 }
+
 pinContainer.appendChild(fragment);
 
 var cardContainer = document.querySelector('.map');
@@ -206,16 +109,11 @@ var makeElement = function (tagName, elementClass, bemModificator) {
 
 var renderCard = function (mapTestObject, cardTemplate) {
   var cardBody = cardTemplate.cloneNode(true);
-  var cardAuthor = mapTestObject['author'].split(', ');
-  cardBody.querySelector('img').src = cardAuthor[window.getRandomInteger(0, cardAuthor.length - 1)];
-  var cardTitle = mapTestObject['offer']['title'].split(', ');
-  cardBody.querySelector('.popup__title').textContent = cardTitle[window.getRandomInteger(0, cardTitle.length - 1)];
-  var cardAddress = mapTestObject['offer']['address'];
-  cardBody.querySelector('.popup__text--address').textContent = cardAddress;
-  var cardPrice = mapTestObject['offer']['price'] + ' ₽/ночь';
-  cardBody.querySelector('.popup__text--price').textContent = cardPrice;
-  var apartmentsType = mapTestObject['offer']['type'].split(', ');
-  var translation = apartmentsType[window.getRandomInteger(0, apartmentsType.length - 1)];
+  cardBody.querySelector('img').src = mapTestObject.author.avatar;
+  cardBody.querySelector('.popup__title').textContent = mapTestObject.offer.title;
+  cardBody.querySelector('.popup__text--address').textContent = mapTestObject.offer.address;
+  cardBody.querySelector('.popup__text--price').textContent = mapTestObject.offer.price + ' ₽/ночь';
+  var translation = mapTestObject.offer.type;
   if (translation === 'palace') {
     translation = 'Дворец';
   } else if (translation === 'flat') {
@@ -226,8 +124,8 @@ var renderCard = function (mapTestObject, cardTemplate) {
     translation = 'Бунгало';
   }
   cardBody.querySelector('.popup__type').textContent = translation;
-  var roomsNumber = mapTestObject['offer']['rooms'];
-  var guestsNumber = mapTestObject['offer']['guests'];
+  var roomsNumber = mapTestObject.offer.rooms;
+  var guestsNumber = mapTestObject.offer.guests;
   var roomText = ' комнаты для ';
   var guestText = ' гостей';
   if (guestsNumber === 1) {
@@ -243,24 +141,24 @@ var renderCard = function (mapTestObject, cardTemplate) {
     roomText = ' комнат для ';
   }
   cardBody.querySelector('.popup__text--capacity').textContent = roomsNumber + roomText + guestsNumber + guestText;
-  var checkin = mapTestObject['offer']['checkin'].split(', ');
-  var checkout = mapTestObject['offer']['checkout'].split(', ');
-  cardBody.querySelector('.popup__text--time').textContent = 'Заезд после ' + checkin[window.getRandomInteger(0, checkin.length - 1)] + ', выезд до' + checkout[window.getRandomInteger(0, checkout.length - 1)];
+  var checkIn = mapTestObject.offer.checkin;
+  var checkOut = mapTestObject.offer.checkout;
+  cardBody.querySelector('.popup__text--time').textContent = 'Заезд после ' + checkIn + ', выезд до' + checkOut;
   var liContainer = cardBody.querySelector('.popup__features');
   var li = cardBody.querySelectorAll('.popup__feature');
   for (var l = 0; l < li.length; l++) {
     liContainer.removeChild(li[l]);
   }
-  var features = mapTestObject['offer']['features'];
+  var features = mapTestObject.offer.features;
   for (var j = 0; j < features.length; j++) {
     var newElement = makeElement('li', 'popup__feature', features[j]);
     cardBody.querySelector('.popup__features').appendChild(newElement);
   }
-  var cardDescription = mapTestObject['offer']['description'];
+  var cardDescription = mapTestObject.offer.description;
   if (cardDescription !== '') {
     cardBody.querySelector('.popup__description').textContent = cardDescription;
   }
-  var cardPhotos = mapTestObject['offer']['photos'];
+  var cardPhotos = mapTestObject.offer.photos;
   cardBody.querySelector('.popup__photos').removeChild(cardBody.querySelector('.popup__photo'));
   for (var k = 0; k < cardPhotos.length; k++) {
     var newPicture = makeElement('img', 'popup__photo');
@@ -270,9 +168,9 @@ var renderCard = function (mapTestObject, cardTemplate) {
     newPicture.setAttribute('alt', 'Фотография жилья');
     cardBody.querySelector('.popup__photos').appendChild(newPicture);
   }
-
   return cardBody;
 };
+
 cardContainer.insertBefore(renderCard(MAP_TEST[0], commercialTemplate), insertBeforeThisElement);
 
 
