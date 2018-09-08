@@ -20,8 +20,8 @@ var aparmentPictures = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'h
 
 var randomFeatures = [];
 
-var createRandomFeatures = function (newArray, oldArray, number) {
-  for (var m = 0; m < number; m++) {
+var createRandomFeatures = function (newArray, oldArray, randomNumber) {
+  for (var m = 0; m < randomNumber; m++) {
     var newFeature = oldArray[Math.floor(Math.random() * oldArray.length)];
     if (newArray[m] !== newFeature) {
       newArray[m] = newFeature;
