@@ -2,17 +2,17 @@
 
 var MAP_TEST = [];
 
-var transformStringToArray = function (string, separator) {
-  return string.split(separator);
-};
+var authorString = 'img/avatars/user01.png, img/avatars/user02.png, img/avatars/user03.png, img/avatars/user04.png, img/avatars/user05.png, img/avatars/user06.png, img/avatars/user07.png, img/avatars/user08.png';
+var authorPictures = window.transformStringToArray(authorString, ', ');
 
-var authorPictures = transformStringToArray('img/avatars/user01.png, img/avatars/user02.png, img/avatars/user03.png, img/avatars/user04.png, img/avatars/user05.png, img/avatars/user06.png, img/avatars/user07.png, img/avatars/user08.png', ', ');
+var titleString = 'Большая уютная квартира, Маленькая неуютная квартира, Огромный прекрасный дворец, Маленький ужасный дворец, Красивый гостевой домик, Некрасивый негостеприимный домик, Уютное бунгало далеко от моря, Неуютное бунгало по колено в воде';
+var titleName = window.transformStringToArray(titleString, ', ');
 
-var titleName = transformStringToArray('Большая уютная квартира, Маленькая неуютная квартира, Огромный прекрасный дворец, Маленький ужасный дворец, Красивый гостевой домик, Некрасивый негостеприимный домик, Уютное бунгало далеко от моря, Неуютное бунгало по колено в воде', ', ');
+var apartmentsString = 'palace, flat, house, bungalo';
+var apartmentsType = window.transformStringToArray(apartmentsString, ', ');
 
-var apartmentsType = transformStringToArray('palace, flat, house, bungalo', ', ');
-
-var chekinTime = transformStringToArray('12:00, 13:00, 14:00', ', ');
+var chekinTimeString = '12:00, 13:00, 14:00';
+var chekinTime = window.transformStringToArray(chekinTimeString, ', ');
 
 var availableFeatures = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 
@@ -21,19 +21,14 @@ var aparmentPictures = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'h
 var randomFeatures = [];
 
 var createRandomFeatures = function (newArray, oldArray, randomNumber) {
-  for (var m = 0; m < randomNumber; m++) {
+  for (var m = 0; m <= randomNumber; m++) {
     var newFeature = oldArray[Math.floor(Math.random() * oldArray.length)];
-    if (newArray[m] !== newFeature) {
-      newArray[m] = newFeature;
-    }
+    newArray[m] = newFeature;
   }
-  return newArray;
+  return newArray.filter(function (value, index, self) {
+    return self.indexOf(value) === index;
+  });
 };
-
-var createRandomPhoto = function () {
-  return Math.random() - 0.5;
-};
-
 
 var generateMapData = function (emptyArray) {
   var cardTestData = {
@@ -49,9 +44,9 @@ var generateMapData = function (emptyArray) {
       guests: window.getRandomInteger(1, 10),
       checkin: chekinTime[window.getRandomInteger(0, chekinTime.length - 1)],
       checkout: chekinTime[window.getRandomInteger(0, chekinTime.length - 1)],
-      features: createRandomFeatures(randomFeatures, availableFeatures, window.getRandomInteger(1, 5)),
+      features: createRandomFeatures(randomFeatures, availableFeatures, window.getRandomInteger(1, 6)),
       description: '',
-      photos: aparmentPictures.sort(createRandomPhoto)
+      photos: aparmentPictures.sort(window.randomShuffle)
     },
     location: {
       x: window.getRandomInteger(0, 1150),
