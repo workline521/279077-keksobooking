@@ -6,13 +6,13 @@ var authorString = 'img/avatars/user01.png, img/avatars/user02.png, img/avatars/
 var authorPictures = window.transformStringToArray(authorString, ', ');
 
 var titleString = 'Большая уютная квартира, Маленькая неуютная квартира, Огромный прекрасный дворец, Маленький ужасный дворец, Красивый гостевой домик, Некрасивый негостеприимный домик, Уютное бунгало далеко от моря, Неуютное бунгало по колено в воде';
-var titleName = window.transformStringToArray(titleString, ', ');
+var titleNames = window.transformStringToArray(titleString, ', ');
 
 var apartmentsString = 'palace, flat, house, bungalo';
-var apartmentsType = window.transformStringToArray(apartmentsString, ', ');
+var apartmentsTypes = window.transformStringToArray(apartmentsString, ', ');
 
 var chekinTimeString = '12:00, 13:00, 14:00';
-var chekinTime = window.transformStringToArray(chekinTimeString, ', ');
+var chekinTimes = window.transformStringToArray(chekinTimeString, ', ');
 
 var availableFeatures = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 
@@ -20,12 +20,12 @@ var aparmentPictures = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'h
 
 var randomFeatures = [];
 
-var createRandomFeatures = function (newArray, oldArray, randomNumber) {
+var createRandomFeatures = function (newList, oldList, randomNumber) {
   for (var m = 0; m <= randomNumber; m++) {
-    var newFeature = oldArray[Math.floor(Math.random() * oldArray.length)];
-    newArray[m] = newFeature;
+    var newFeature = oldList[Math.floor(Math.random() * oldList.length)];
+    newList[m] = newFeature;
   }
-  return newArray.filter(function (value, index, self) {
+  return newList.filter(function (value, index, self) {
     return self.indexOf(value) === index;
   });
 };
@@ -36,14 +36,14 @@ var generateMapData = function (emptyArray) {
       avatar: authorPictures[window.getRandomInteger(0, authorPictures.length - 1)]
     },
     offer: {
-      title: titleName[window.getRandomInteger(0, titleName.length - 1)],
+      title: titleNames[window.getRandomInteger(0, titleNames.length - 1)],
       address: window.getRandomInteger(0, 1150) + ', ' + window.getRandomInteger(130, 630),
       price: window.getRandomInteger(1000, 1000000),
-      type: apartmentsType[window.getRandomInteger(0, apartmentsType.length - 1)],
+      type: apartmentsTypes[window.getRandomInteger(0, apartmentsTypes.length - 1)],
       rooms: window.getRandomInteger(1, 5),
       guests: window.getRandomInteger(1, 10),
-      checkin: chekinTime[window.getRandomInteger(0, chekinTime.length - 1)],
-      checkout: chekinTime[window.getRandomInteger(0, chekinTime.length - 1)],
+      checkin: chekinTimes[window.getRandomInteger(0, chekinTimes.length - 1)],
+      checkout: chekinTimes[window.getRandomInteger(0, chekinTimes.length - 1)],
       features: createRandomFeatures(randomFeatures, availableFeatures, window.getRandomInteger(1, 6)),
       description: '',
       photos: aparmentPictures.sort(window.randomShuffle)
