@@ -28,6 +28,21 @@ var createRandomFeatures = function (newList, oldList, randomNumber) {
   });
 };
 
+var swapPictures = function (pictures) {
+  var first = window.getRandomInteger(0, pictures.length - 1);
+  var second = window.getRandomInteger(0, pictures.length - 1);
+  var newArray = pictures.slice();
+  if (first !== second) {
+    newArray[first] = pictures[second];
+    newArray[second] = pictures[first];
+  } else {
+    first = window.getRandomInteger(0, pictures.length - 1);
+    newArray[first] = pictures[second];
+    newArray[second] = pictures[first];
+  }
+  return newArray;
+};
+
 var generateCardData = function () {
   var locationX = window.getRandomInteger(0, 1150);
   var locationY = window.getRandomInteger(130, 630);
@@ -46,7 +61,7 @@ var generateCardData = function () {
       checkout: chekinTimes[window.getRandomInteger(0, chekinTimes.length - 1)],
       features: createRandomFeatures(randomFeatures, availableFeatures, window.getRandomInteger(1, 6)),
       description: '',
-      photos: window.shuffle(aparmentPictures)
+      photos: swapPictures(aparmentPictures)
     },
     location: {
       x: locationX,
@@ -59,6 +74,7 @@ var generateCardData = function () {
 for (var index = 0; index < 8; index++) {
   mapTest.push(generateCardData());
 }
+
 var map = document.querySelector('.map');
 map.classList.remove('map--faded');
 
