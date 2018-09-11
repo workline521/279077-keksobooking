@@ -113,7 +113,8 @@ var makeElement = function (tagName, elementClass, bemModificator) {
   return element;
 };
 
-var translateApartmentsName = function (englishText, russianText) {
+var translateApartmentsName = function (englishText) {
+  var russianText;
   if (englishText === 'palace') {
     russianText = 'Дворец';
   } else if (englishText === 'flat') {
