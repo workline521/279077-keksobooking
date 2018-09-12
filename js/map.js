@@ -74,7 +74,6 @@ for (var index = 0; index < 8; index++) {
 }
 
 var map = document.querySelector('.map');
-map.classList.remove('map--faded');
 
 var pinContainer = document.querySelector('.map__pins');
 
@@ -95,8 +94,6 @@ for (var i = 0; i < mapTest.length; i++) {
   fragment.appendChild(renderPins(mapTest[i]));
 
 }
-
-pinContainer.appendChild(fragment);
 
 var cardContainer = document.querySelector('.map');
 
@@ -183,6 +180,79 @@ var renderCard = function (mapTestObject, cardTemplate) {
   return cardBody;
 };
 
-cardContainer.insertBefore(renderCard(mapTest[0], commercialTemplate), insertBeforeThisElement);
+var addressInput = document.getElementById('address');
 
+var fieldsets = document.getElementsByTagName('fieldset');
 
+var selects = document.getElementsByTagName('select');
+
+var adForm = document.querySelector('.ad-form');
+
+var mainPin = document.querySelector('.map__pin--main');
+
+var disableInputs = function (tagCollection) {
+  for (var x = 0; x < tagCollection.length; x++) {
+    tagCollection[x].setAttribute('disabled', 'disabled');
+  }
+};
+disableInputs(fieldsets);
+disableInputs(selects);
+
+var enableInputs = function (tagList) {
+  for (var c = 0; c < tagList.length; c++) {
+    tagList[c].removeAttribute('disabled');
+  }
+};
+var getAddress = function (pinElement) {
+  var address = pinElement.getAttribute('style').split(' ');
+  var locX = parseInt(address[1], 10);
+  var locY = parseInt(address[3], 10);
+  return (locX + 31) + ',' + (locY + 80);
+};
+
+addressInput.setAttribute('value', getAddress(mainPin));
+
+mainPin.addEventListener('mouseup', function () {
+  if (map.classList.contains('map--faded')) {
+    enableInputs(fieldsets);
+    enableInputs(selects);
+    map.classList.remove('map--faded');
+    adForm.classList.remove('ad-form--disabled');
+    pinContainer.appendChild(fragment);
+    var mapPins = document.querySelectorAll('button.map__pin:not(.map__pin--main)');
+    for (var t = 0; t < mapPins.length; t++) {
+      var mapPin = mapPins[t];
+      mapPin.setAttribute('data-index', t);
+      mapPin.addEventListener('click', showCard);
+    }
+    map.addEventListener('click', function (evt) {
+      var tar = evt.target;
+      if (tar.className === 'popup__close') {
+        map.removeChild(document.querySelector('article.map__card'));
+      }
+    });
+    document.addEventListener('keydown', function (evt) {
+      if (evt.keyCode === 27 && document.querySelector('article.map__card')) {
+        map.removeChild(document.querySelector('article.map__card'));
+      }
+    });
+  }
+});
+
+var showCard = function (evt) {
+  if (!document.querySelector('article.map__card') && evt.target.nodeName === 'IMG') {
+    var pinIndex = evt.target.parentElement.getAttribute('data-index');
+    cardContainer.insertBefore(renderCard(mapTest[pinIndex], commercialTemplate), insertBeforeThisElement);
+  } else if ((!document.querySelector('article.map__card') && evt.target.nodeName === 'BUTTON')) {
+    pinIndex = evt.target.getAttribute('data-index');
+    cardContainer.insertBefore(renderCard(mapTest[pinIndex], commercialTemplate), insertBeforeThisElement);
+  } else if ((document.querySelector('article.map__card') && evt.target.nodeName === 'IMG')) {
+    map.removeChild(document.querySelector('article.map__card'));
+    pinIndex = evt.target.parentElement.getAttribute('data-index');
+    cardContainer.insertBefore(renderCard(mapTest[pinIndex], commercialTemplate), insertBeforeThisElement);
+  } else if ((document.querySelector('article.map__card') && evt.target.nodeName === 'BUTTON')) {
+    map.removeChild(document.querySelector('article.map__card'));
+    pinIndex = evt.target.getAttribute('data-index');
+    cardContainer.insertBefore(renderCard(mapTest[pinIndex], commercialTemplate), insertBeforeThisElement);
+  }
+};
