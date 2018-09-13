@@ -232,7 +232,7 @@ mainPin.addEventListener('mouseup', function () {
       }
     });
     document.addEventListener('keydown', function (evt) {
-      if (evt.keyCode === 27 && document.querySelector('article.map__card')) {
+      if (evt.keyCode === 27 && map.querySelector('article.map__card')) {
         map.removeChild(document.querySelector('article.map__card'));
       }
     });
@@ -240,19 +240,60 @@ mainPin.addEventListener('mouseup', function () {
 });
 
 var showCard = function (evt) {
-  if (!document.querySelector('article.map__card') && evt.target.nodeName === 'IMG') {
-    var pinIndex = evt.target.parentElement.getAttribute('data-index');
-    cardContainer.insertBefore(renderCard(mapTest[pinIndex], commercialTemplate), insertBeforeThisElement);
-  } else if ((!document.querySelector('article.map__card') && evt.target.nodeName === 'BUTTON')) {
-    pinIndex = evt.target.getAttribute('data-index');
-    cardContainer.insertBefore(renderCard(mapTest[pinIndex], commercialTemplate), insertBeforeThisElement);
-  } else if ((document.querySelector('article.map__card') && evt.target.nodeName === 'IMG')) {
-    map.removeChild(document.querySelector('article.map__card'));
+  var pinIndex;
+  if (evt.target.nodeName === 'IMG') {
     pinIndex = evt.target.parentElement.getAttribute('data-index');
-    cardContainer.insertBefore(renderCard(mapTest[pinIndex], commercialTemplate), insertBeforeThisElement);
-  } else if ((document.querySelector('article.map__card') && evt.target.nodeName === 'BUTTON')) {
-    map.removeChild(document.querySelector('article.map__card'));
+  } else {
     pinIndex = evt.target.getAttribute('data-index');
+  }
+  if (!document.querySelector('article.map__card')) {
+    cardContainer.insertBefore(renderCard(mapTest[pinIndex], commercialTemplate), insertBeforeThisElement);
+  } else {
+    map.removeChild(document.querySelector('article.map__card'));
     cardContainer.insertBefore(renderCard(mapTest[pinIndex], commercialTemplate), insertBeforeThisElement);
   }
 };
+
+
+var titleInput = document.getElementById('title');
+var typeInput = document.getElementById('type');
+var priceInput = document.getElementById('price');
+var timeInInput = document.getElementById('timein');
+var timeOutInput = document.getElementById('timeout');
+
+titleInput.addEventListener('invalid', function () {
+  if (titleInput.validity.tooShort) {
+    titleInput.setCustomValidity('Имя должно состоять минимум из 30-х символов');
+  } else if (titleInput.validity.tooLong) {
+    titleInput.setCustomValidity('Имя не должно превышать 100 символов');
+  } else if (titleInput.validity.valueMissing) {
+    titleInput.setCustomValidity('Обязательное поле');
+  } else {
+    titleInput.setCustomValidity('');
+  }
+});
+
+typeInput.addEventListener('change', function () {
+  if (typeInput.value === 'bungalo') {
+    priceInput.setAttribute('placeholder', '0');
+    priceInput.setAttribute('min', '0');
+  } else if (typeInput.value === 'flat') {
+    priceInput.setAttribute('placeholder', '1000');
+    priceInput.setAttribute('min', '1000');
+  } else if (typeInput.value === 'house') {
+    priceInput.setAttribute('placeholder', '5000');
+    priceInput.setAttribute('min', '5000');
+  } else {
+    priceInput.setAttribute('placeholder', '10000');
+    priceInput.setAttribute('min', '10000');
+  }
+});
+
+timeInInput.addEventListener('change', function () {
+  timeOutInput.value = timeInInput.value;
+});
+timeOutInput.addEventListener('change', function () {
+  timeInInput.value = timeOutInput.value;
+});
+
+
