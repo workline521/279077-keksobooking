@@ -241,7 +241,7 @@ mainPin.addEventListener('mouseup', function () {
 
 var showCard = function (evt) {
   var pinIndex;
-  if (evt.target.nodeName === 'IMG') {
+  if (evt.target.nodeName !== 'BUTTON') {
     pinIndex = evt.target.parentElement.getAttribute('data-index');
   } else {
     pinIndex = evt.target.getAttribute('data-index');
