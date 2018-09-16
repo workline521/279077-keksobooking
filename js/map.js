@@ -252,6 +252,6 @@ var closeCard = function (e) {
   if (e.keyCode === 27 && map.querySelector('article.map__card')) {
     map.removeChild(document.querySelector('article.map__card'));
     document.removeEventListener('keydown', closeCard);
+    document.querySelector('.map__pin--active').classList.remove('map__pin--active');
   }
-  document.querySelector('.map__pin--active').classList.remove('map__pin--active');
 };
