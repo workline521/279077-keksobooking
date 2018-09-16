@@ -225,32 +225,33 @@ mainPin.addEventListener('mouseup', function () {
       mapPin.setAttribute('data-index', t);
       mapPin.addEventListener('click', showCard);
     }
-    map.addEventListener('click', function (evt) {
-      var tar = evt.target;
-      if (tar.className === 'popup__close') {
-        map.removeChild(document.querySelector('article.map__card'));
-      }
-    });
-    document.addEventListener('keydown', function (evt) {
-      if (evt.keyCode === 27 && map.querySelector('article.map__card')) {
-        map.removeChild(document.querySelector('article.map__card'));
-      }
-    });
   }
 });
 
 var showCard = function (evt) {
-  var pinIndex;
-  if (evt.target.nodeName !== 'BUTTON') {
-    pinIndex = evt.target.parentElement.getAttribute('data-index');
-  } else {
-    pinIndex = evt.target.getAttribute('data-index');
+  var pinIndex = evt.currentTarget.getAttribute('data-index');
+  var card = document.querySelector('article.map__card');
+  if (card) {
+    map.removeChild(card);
   }
-  if (!document.querySelector('article.map__card')) {
-    cardContainer.insertBefore(renderCard(mapTest[pinIndex], commercialTemplate), insertBeforeThisElement);
-  } else {
+  cardContainer.insertBefore(renderCard(mapTest[pinIndex], commercialTemplate), insertBeforeThisElement);
+  document.addEventListener('keydown', closeCard);
+  document.querySelector('article.map__card').querySelector('button.popup__close').addEventListener('click', function () {
     map.removeChild(document.querySelector('article.map__card'));
-    cardContainer.insertBefore(renderCard(mapTest[pinIndex], commercialTemplate), insertBeforeThisElement);
+    document.querySelector('.map__pin--active').classList.remove('map__pin--active');
+  });
+  var pins = document.querySelectorAll('button.map__pin:not(.map__pin--main)');
+  for (var q = 0; q < pins.length; q++) {
+    pins[q].classList.remove('map__pin--active');
   }
+  evt.currentTarget.classList.add('map__pin--active');
+  document.addEventListener('keydown', closeCard);
 };
 
+var closeCard = function (e) {
+  if (e.keyCode === 27 && map.querySelector('article.map__card')) {
+    map.removeChild(document.querySelector('article.map__card'));
+    document.removeEventListener('keydown', closeCard);
+  }
+  document.querySelector('.map__pin--active').classList.remove('map__pin--active');
+};
