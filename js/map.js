@@ -180,8 +180,6 @@ var renderCard = function (mapTestObject, cardTemplate) {
   return cardBody;
 };
 
-var addressInput = document.getElementById('address');
-
 var fieldsets = document.getElementsByTagName('fieldset');
 
 var selects = document.getElementsByTagName('select');
@@ -203,16 +201,8 @@ var enableInputs = function (tagList) {
     tagList[c].removeAttribute('disabled');
   }
 };
-var getAddress = function (pinElement) {
-  var address = pinElement.getAttribute('style').split(' ');
-  var locX = parseInt(address[1], 10);
-  var locY = parseInt(address[3], 10);
-  return (locX + 31) + ',' + (locY + 80);
-};
 
-addressInput.setAttribute('value', getAddress(mainPin));
-
-mainPin.addEventListener('mouseup', function () {
+mainPin.addEventListener('mousedown', function () {
   if (map.classList.contains('map--faded')) {
     enableInputs(fieldsets);
     enableInputs(selects);
@@ -301,7 +291,7 @@ timeOutInput.addEventListener('change', function () {
   timeInInput.value = timeOutInput.value;
 });
 
-var roomsSelectHandler = function () {
+var onSelectChange = function () {
   if (capacity.value === '0' && rooms.value === '100') {
     capacity.setCustomValidity('');
     rooms.setCustomValidity('');
@@ -315,4 +305,59 @@ var roomsSelectHandler = function () {
     capacity.setCustomValidity('В каждой комнате максимум по одному гостю');
   }
 };
-form.addEventListener('change', roomsSelectHandler);
+form.addEventListener('change', onSelectChange);
+
+
+var addressInput = document.getElementById('address');
+
+var getAddress = function () {
+  var address = mainPin.getAttribute('style').split(' ');
+  var locX = parseInt(address[1], 10);
+  var locY = parseInt(address[3], 10);
+  return (locX + 31) + ',' + (locY + 79);
+};
+
+var showAddress = function () {
+  addressInput.setAttribute('value', getAddress());
+};
+
+mainPin.addEventListener('mousemove', showAddress);
+mainPin.addEventListener('mousedown', function (dragEvt) {
+  dragEvt.preventDefault();
+  var startCoords = {
+    x: dragEvt.clientX,
+    y: dragEvt.clientY
+  };
+  var onMouseMove = function (moveEvt) {
+    moveEvt.preventDefault();
+    var shift = {
+      x: startCoords.x - moveEvt.clientX,
+      y: startCoords.y - moveEvt.clientY
+    };
+    startCoords = {
+      x: moveEvt.clientX,
+      y: moveEvt.clientY
+    };
+    mainPin.style.top = (mainPin.offsetTop - shift.y) + 'px';
+    mainPin.style.left = (mainPin.offsetLeft - shift.x) + 'px';
+    if (mainPin.offsetLeft - shift.x <= 0) {
+      mainPin.style.left = 0 + 'px';
+    } else if (mainPin.offsetLeft - shift.x >= 1138) {
+      mainPin.style.left = 1138 + 'px';
+    }
+    if (mainPin.offsetTop - shift.y < 100) {
+      mainPin.style.top = 100 + 'px';
+    } else if (mainPin.offsetTop - shift.y > 630) {
+      mainPin.style.top = 630 + 'px';
+    }
+
+  };
+  var onMouseUp = function (upEvt) {
+    upEvt.preventDefault();
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup', onMouseUp);
+  };
+  document.addEventListener('mousemove', onMouseMove);
+  document.addEventListener('mouseup', onMouseUp);
+});
+
