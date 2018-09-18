@@ -354,10 +354,10 @@ mainPin.addEventListener('mousedown', function (dragEvt) {
   };
   var onMouseUp = function (upEvt) {
     upEvt.preventDefault();
-    document.removeEventListener('mousemove', onMouseMove);
+    map.removeEventListener('mousemove', onMouseMove);
     document.removeEventListener('mouseup', onMouseUp);
   };
-  document.addEventListener('mousemove', onMouseMove);
+  map.addEventListener('mousemove', onMouseMove);
   document.addEventListener('mouseup', onMouseUp);
 });
 
