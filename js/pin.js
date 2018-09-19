@@ -1,6 +1,9 @@
 'use strict';
 (function () {
-  window.fragment = document.createDocumentFragment();
+  var fragment = document.createDocumentFragment();
+  window.pin = {
+    fragment: fragment
+  };
   var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
   var renderPins = function (mapTemplate) {
     var pinElement = pinTemplate.cloneNode(true);
@@ -11,8 +14,8 @@
     return pinElement;
   };
 
-  for (var i = 0; i < window.mapTest.length; i++) {
-    window.fragment.appendChild(renderPins(window.mapTest[i]));
+  for (var i = 0; i < window.data.mapTest.length; i++) {
+    fragment.appendChild(renderPins(window.data.mapTest[i]));
 
   }
 })();

@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-
   var makeElement = function (tagName, elementClass, bemModificator) {
     var element = document.createElement(tagName);
     element.classList.add(elementClass);
@@ -43,7 +42,7 @@
     return roomsNumber + roomText + guestsNumber + guestText;
   };
 
-  window.renderCard = function (mapTestObject, cardTemplate) {
+  var renderCard = function (mapTestObject, cardTemplate) {
     var cardBody = cardTemplate.cloneNode(true);
     cardBody.querySelector('img').src = mapTestObject.author.avatar;
     cardBody.querySelector('.popup__title').textContent = mapTestObject.offer.title;
@@ -79,5 +78,8 @@
       cardBody.querySelector('.popup__photos').appendChild(newPicture);
     }
     return cardBody;
+  };
+  window.card = {
+    renderCard: renderCard
   };
 })();

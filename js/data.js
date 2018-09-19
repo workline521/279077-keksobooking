@@ -1,7 +1,10 @@
 'use strict';
 
 (function () {
-  window.mapTest = [];
+  var mapTest = [];
+  window.data = {
+    mapTest: mapTest
+  };
   var authorPictures = ['img/avatars/user01.png', 'img/avatars/user02.png', 'img/avatars/user03.png', 'img/avatars/user04.png', 'img/avatars/user05.png', 'img/avatars/user06.png', 'img/avatars/user07.png', 'img/avatars/user08.png'];
 
   var titleNames = ['Большая уютная квартира', 'Маленькая неуютная квартира', 'Огромный прекрасный дворец', 'Маленький ужасный дворец', 'Красивый гостевой домик', 'Некрасивый негостеприимный домик', 'Уютное бунгало далеко от моря', 'Неуютное бунгало по колено в воде'];
@@ -27,14 +30,14 @@
   };
 
   var swapPictures = function (pictures) {
-    var first = window.getRandomInteger(0, pictures.length - 1);
-    var second = window.getRandomInteger(0, pictures.length - 1);
+    var first = window.common.getRandomInteger(0, pictures.length - 1);
+    var second = window.common.getRandomInteger(0, pictures.length - 1);
     var newArray = pictures.slice();
     if (first !== second) {
       newArray[first] = pictures[second];
       newArray[second] = pictures[first];
     } else {
-      first = window.getRandomInteger(0, pictures.length - 1);
+      first = window.common.getRandomInteger(0, pictures.length - 1);
       newArray[first] = pictures[second];
       newArray[second] = pictures[first];
     }
@@ -42,8 +45,8 @@
   };
 
   var generateCardData = function () {
-    var locationX = window.getRandomInteger(0, 1150);
-    var locationY = window.getRandomInteger(130, 630);
+    var locationX = window.common.getRandomInteger(0, 1150);
+    var locationY = window.common.getRandomInteger(130, 630);
     var cardTestData = {
       author: {
         avatar: authorPictures.pop()
@@ -51,13 +54,13 @@
       offer: {
         title: titleNames.pop(),
         address: locationX + ', ' + locationY,
-        price: window.getRandomInteger(1000, 1000000),
-        type: apartmentsTypes[window.getRandomInteger(0, apartmentsTypes.length - 1)],
-        rooms: window.getRandomInteger(1, 5),
-        guests: window.getRandomInteger(1, 10),
-        checkin: chekinTimes[window.getRandomInteger(0, chekinTimes.length - 1)],
-        checkout: chekinTimes[window.getRandomInteger(0, chekinTimes.length - 1)],
-        features: createRandomFeatures(randomFeatures, availableFeatures, window.getRandomInteger(1, 6)),
+        price: window.common.getRandomInteger(1000, 1000000),
+        type: apartmentsTypes[window.common.getRandomInteger(0, apartmentsTypes.length - 1)],
+        rooms: window.common.getRandomInteger(1, 5),
+        guests: window.common.getRandomInteger(1, 10),
+        checkin: chekinTimes[window.common.getRandomInteger(0, chekinTimes.length - 1)],
+        checkout: chekinTimes[window.common.getRandomInteger(0, chekinTimes.length - 1)],
+        features: createRandomFeatures(randomFeatures, availableFeatures, window.common.getRandomInteger(1, 6)),
         description: '',
         photos: swapPictures(aparmentPictures)
       },
@@ -70,6 +73,6 @@
   };
 
   for (var index = 0; index < 8; index++) {
-    window.mapTest.push(generateCardData());
+    window.data.mapTest.push(generateCardData());
   }
 })();

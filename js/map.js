@@ -19,9 +19,9 @@
 
   var selects = document.getElementsByTagName('select');
 
-  window.disableInputs(fieldsets);
+  window.form.disableInputs(fieldsets);
 
-  window.disableInputs(selects);
+  window.form.disableInputs(selects);
 
   var addressInput = document.getElementById('address');
 
@@ -32,11 +32,11 @@
   };
   mainPin.addEventListener('mousedown', function () {
     if (map.classList.contains('map--faded')) {
-      window.enableInputs(fieldsets);
-      window.enableInputs(selects);
+      window.form.enableInputs(fieldsets);
+      window.form.enableInputs(selects);
       map.classList.remove('map--faded');
       adForm.classList.remove('ad-form--disabled');
-      pinContainer.appendChild(window.fragment);
+      pinContainer.appendChild(window.pin.fragment);
       var mapPins = document.querySelectorAll('button.map__pin:not(.map__pin--main)');
       for (var t = 0; t < mapPins.length; t++) {
         var mapPin = mapPins[t];
@@ -52,7 +52,7 @@
     if (card) {
       map.removeChild(card);
     }
-    cardContainer.insertBefore(window.renderCard(window.mapTest[pinIndex], commercialTemplate), insertBeforeThisElement);
+    cardContainer.insertBefore(window.card.renderCard(window.data.mapTest[pinIndex], commercialTemplate), insertBeforeThisElement);
     document.addEventListener('keydown', closeCard);
     document.querySelector('article.map__card').querySelector('button.popup__close').addEventListener('click', function () {
       map.removeChild(document.querySelector('article.map__card'));

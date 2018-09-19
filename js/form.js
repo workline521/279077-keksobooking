@@ -1,15 +1,19 @@
 'use strict';
 (function () {
 
-  window.disableInputs = function (tagCollection) {
+  var disableInputs = function (tagCollection) {
     for (var x = 0; x < tagCollection.length; x++) {
       tagCollection[x].disabled = 'disabled';
     }
   };
-  window.enableInputs = function (tagList) {
+  var enableInputs = function (tagList) {
     for (var c = 0; c < tagList.length; c++) {
       tagList[c].disabled = '';
     }
+  };
+  window.form = {
+    disableInputs: disableInputs,
+    enableInputs: enableInputs
   };
   var form = document.querySelector('.ad-form');
   var titleInput = document.getElementById('title');
