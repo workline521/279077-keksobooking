@@ -73,6 +73,6 @@
   };
 
   for (var index = 0; index < 8; index++) {
-    window.data.mapTest.push(generateCardData());
+    mapTest.push(generateCardData());
   }
 })();

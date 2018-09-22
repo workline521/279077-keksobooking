@@ -1,28 +1,22 @@
 'use strict';
 (function () {
 
-  var disableInputs = function (tagCollection) {
-    for (var x = 0; x < tagCollection.length; x++) {
-      tagCollection[x].disabled = 'disabled';
-    }
-  };
   var enableInputs = function (tagList) {
     for (var c = 0; c < tagList.length; c++) {
-      tagList[c].disabled = '';
+      tagList[c].disabled = false;
     }
   };
   window.form = {
-    disableInputs: disableInputs,
     enableInputs: enableInputs
   };
   var form = document.querySelector('.ad-form');
-  var titleInput = document.getElementById('title');
-  var typeInput = document.getElementById('type');
-  var priceInput = document.getElementById('price');
-  var timeInInput = document.getElementById('timein');
-  var timeOutInput = document.getElementById('timeout');
-  var rooms = document.getElementById('room_number');
-  var capacity = document.getElementById('capacity');
+  var titleInput = document.querySelector('#title');
+  var typeInput = document.querySelector('#type');
+  var priceInput = document.querySelector('#price');
+  var timeInInput = document.querySelector('#timein');
+  var timeOutInput = document.querySelector('#timeout');
+  var rooms = document.querySelector('#room_number');
+  var capacity = document.querySelector('#capacity');
 
   titleInput.addEventListener('invalid', function () {
     if (titleInput.validity.tooShort) {
