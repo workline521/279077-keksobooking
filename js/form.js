@@ -6,8 +6,14 @@
       tagList[c].disabled = false;
     }
   };
+  var disableInputs = function (tagList) {
+    for (var b = 0; b < tagList.length; b++) {
+      tagList[b].disabled = 'disabled';
+    }
+  };
   window.form = {
-    enableInputs: enableInputs
+    enableInputs: enableInputs,
+    disableInputs: disableInputs
   };
   var form = document.querySelector('.ad-form');
   var titleInput = document.querySelector('#title');
