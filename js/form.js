@@ -1,14 +1,14 @@
 'use strict';
 (function () {
 
-  var enableInputs = function (tagList) {
-    for (var c = 0; c < tagList.length; c++) {
-      tagList[c].disabled = false;
+  var enableInputs = function (inputsList) {
+    for (var i = 0; i < inputsList.length; i++) {
+      inputsList[i].disabled = false;
     }
   };
-  var disableInputs = function (tagList) {
-    for (var b = 0; b < tagList.length; b++) {
-      tagList[b].disabled = 'disabled';
+  var disableInputs = function (inputsList) {
+    for (var i = 0; i < inputsList.length; i++) {
+      inputsList[i].disabled = true;
     }
   };
   window.form = {
