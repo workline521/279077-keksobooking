@@ -1,13 +1,19 @@
 'use strict';
 (function () {
 
-  var enableInputs = function (tagList) {
-    for (var c = 0; c < tagList.length; c++) {
-      tagList[c].disabled = false;
+  var enableInputs = function (inputsList) {
+    for (var i = 0; i < inputsList.length; i++) {
+      inputsList[i].disabled = false;
+    }
+  };
+  var disableInputs = function (inputsList) {
+    for (var i = 0; i < inputsList.length; i++) {
+      inputsList[i].disabled = true;
     }
   };
   window.form = {
-    enableInputs: enableInputs
+    enableInputs: enableInputs,
+    disableInputs: disableInputs
   };
   var form = document.querySelector('.ad-form');
   var titleInput = document.querySelector('#title');
