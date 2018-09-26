@@ -188,5 +188,8 @@
     window.backend.sendData(new FormData(adForm), onSubmit, onSubmitError);
     evt.preventDefault();
   });
+  window.map = {
+    showCard: showCard
+  };
 })();
 
