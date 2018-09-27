@@ -59,7 +59,7 @@
   };
 
 
-  var onfilterChange = function () {
+  var onFilterChange = function () {
     window.debounce(function () {
       var pinContainer = document.querySelector('.map__pins');
       var sortedPins = window.mapData.filter(typeFilter).filter(priceFilter).filter(guestsFilter).filter(roomsFilter).filter(featuresFilter);
@@ -79,5 +79,5 @@
       }
     });
   };
-  filterForm.addEventListener('change', onfilterChange);
+  filterForm.addEventListener('change', onFilterChange);
 })();
