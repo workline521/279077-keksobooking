@@ -14,7 +14,7 @@
 
   var onLoad = function (data) {
     window.mapData = data;
-    for (var i = 0; i < window.mapData.length; i++) {
+    for (var i = 0; i < 5; i++) {
       fragment.appendChild(window.pin.render(window.mapData[i]));
     }
     pinContainer.appendChild(fragment);
@@ -189,7 +189,7 @@
     evt.preventDefault();
   });
   window.map = {
-    showCard: showCard
+    closeCard: closeCard
   };
 })();
 
