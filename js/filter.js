@@ -82,9 +82,9 @@
     var sortedPins2 = sortedPins.slice(0, 5);
     var fragment = document.createDocumentFragment();
     removePins();
-    if (sortedPins.length) {
-      for (var i = 0; i < sortedPins.length; i++) {
-        fragment.appendChild(window.pin.render(sortedPins[i]));
+    if (sortedPins2.length) {
+      for (var i = 0; i < sortedPins2.length; i++) {
+        fragment.appendChild(window.pin.render(sortedPins2[i]));
       }
       pinContainer.appendChild(fragment);
       var mapPins = document.querySelectorAll('button.map__pin:not(.map__pin--main)');
