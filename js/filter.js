@@ -10,14 +10,14 @@
 
   var removePins = function () {
     var allPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
-    for (var i = 0; i < allPins.length; i++) {
-      allPins[i].remove();
-    }
-
+    allPins.forEach(function (it) {
+      it.classList.add('hidden');
+      it.classList.remove('map__pin--active');
+    });
     var allCards = document.querySelectorAll('.map__card');
-    for (var j = 0; j < allCards.length; j++) {
-      allCards[j].remove();
-    }
+    allCards.forEach(function (it) {
+      it.classList.add('hidden');
+    });
   };
 
   var typeFilter = function (newType) {
@@ -58,41 +58,11 @@
     });
   };
   var onFilterChange = function () {
-    var showFilteredCards = function (evt) {
-      var pinIndex = evt.currentTarget.dataset.index;
-      var card = document.querySelector('article.map__card');
-      if (card) {
-        document.querySelector('.map').removeChild(card);
-      }
-      document.querySelector('.map').insertBefore(window.card.render(sortedPins2[pinIndex]), document.querySelector('.map__filters-container'));
-      document.addEventListener('keydown', window.map.closeCard);
-      document.querySelector('article.map__card').querySelector('button.popup__close').addEventListener('click', function () {
-        document.querySelector('.map').removeChild(document.querySelector('article.map__card'));
-        document.querySelector('.map__pin--active').classList.remove('map__pin--active');
-      });
-      var pins = document.querySelectorAll('button.map__pin:not(.map__pin--main)');
-      for (var q = 0; q < pins.length; q++) {
-        pins[q].classList.remove('map__pin--active');
-      }
-      evt.currentTarget.classList.add('map__pin--active');
-      document.addEventListener('keydown', window.map.closeCard);
-    };
-    var pinContainer = document.querySelector('.map__pins');
+    var pins = document.querySelectorAll('button.map__pin:not(.map__pin--main)');
     var sortedPins = window.mapData.filter(typeFilter).filter(priceFilter).filter(guestsFilter).filter(roomsFilter).filter(featuresFilter);
-    var sortedPins2 = sortedPins.slice(0, 5);
-    var fragment = document.createDocumentFragment();
     removePins();
-    if (sortedPins2.length) {
-      for (var i = 0; i < sortedPins2.length; i++) {
-        fragment.appendChild(window.pin.render(sortedPins2[i]));
-      }
-      pinContainer.appendChild(fragment);
-      var mapPins = document.querySelectorAll('button.map__pin:not(.map__pin--main)');
-      for (var t = 0; t < mapPins.length; t++) {
-        var mapPin = mapPins[t];
-        mapPin.dataset.index = t;
-        mapPin.addEventListener('click', showFilteredCards);
-      }
+    for (var i = 0; i < sortedPins.length; i++) {
+      pins[sortedPins[i].id].classList.remove('hidden');
     }
   };
   filterForm.addEventListener('change', window.debounce(onFilterChange));

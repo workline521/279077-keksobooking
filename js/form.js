@@ -11,10 +11,7 @@
       inputsList[i].disabled = true;
     }
   };
-  window.form = {
-    enableInputs: enableInputs,
-    disableInputs: disableInputs
-  };
+
   var form = document.querySelector('.ad-form');
   var titleInput = document.querySelector('#title');
   var typeInput = document.querySelector('#type');
@@ -75,4 +72,8 @@
     }
   };
   form.addEventListener('change', onSelectChange);
+  window.form = {
+    enableInputs: enableInputs,
+    disableInputs: disableInputs
+  };
 })();

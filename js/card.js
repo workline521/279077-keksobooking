@@ -80,6 +80,7 @@
       newPicture.setAttribute('alt', 'Фотография жилья');
       photosContainer.appendChild(newPicture);
     }
+    cardBody.classList.add('hidden');
     return cardBody;
   };
   window.card = {
