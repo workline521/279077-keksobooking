@@ -131,9 +131,11 @@
     window.filter.removeMapData();
     adForm.reset();
     var uploadedPhotos = document.querySelectorAll('.ad-form__photo');
-    uploadedPhotos.forEach(function (it) {
-      it.remove();
-    });
+    if (uploadedPhotos) {
+      uploadedPhotos.forEach(function (it) {
+        it.remove();
+      });
+    }
     window.form.disableInputs(fieldsets);
     window.form.disableInputs(selects);
     cardContainer.classList.add('map--faded');
@@ -175,15 +177,8 @@
     errorElement.removeEventListener('click', closeError);
   };
   var onSubmit = function () {
-    adForm.reset();
-    mainPin.style = 'left: 570px; top: 375px;';
-    cardContainer.classList.add('map--faded');
-    adForm.classList.add('ad-form--disabled');
-    window.filter.removeMapData();
+    onReset();
     showSuccess();
-    window.form.disableInputs(fieldsets);
-    window.form.disableInputs(selects);
-    mainPin.addEventListener('mousedown', onDownload);
   };
 
   adForm.addEventListener('submit', function (evt) {
