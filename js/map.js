@@ -147,6 +147,7 @@
     main.removeChild(successElement);
     document.removeEventListener('keydown', closeSuccess);
   };
+
   var onSubmitError = function (errorMessage) {
     var error = document.querySelector('#error').content.querySelector('.error');
     var errorElement = error.cloneNode(true);
@@ -156,14 +157,47 @@
     document.addEventListener('keydown', closeError);
     errorElement.addEventListener('click', closeError);
   };
+
   var closeError = function () {
     var errorElement = document.querySelector('.error');
     main.removeChild(errorElement);
     document.removeEventListener('keydown', closeError);
     errorElement.removeEventListener('click', closeError);
   };
-  var onSubmit = function () {
+
+  var resetBtn = document.querySelector('.ad-form__reset');
+
+  var removeMapData = function () {
+    var allButtons = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+    for (var i = 0; i < allButtons.length; i++) {
+      allButtons[i].remove();
+    }
+
+    var allCards = document.querySelectorAll('.map__card');
+    for (var j = 0; j < allCards.length; j++) {
+      allCards[j].remove();
+    }
+  };
+
+  var onReset = function () {
+    removeMapData();
     adForm.reset();
+    var uploadedPhotos = document.querySelectorAll('.ad-form__photo');
+    uploadedPhotos.forEach(function (it) {
+      it.remove();
+    });
+    window.form.disableInputs(fieldsets);
+    window.form.disableInputs(selects);
+    cardContainer.classList.add('map--faded');
+    adForm.classList.add('ad-form--disabled');
+    mainPin.addEventListener('mousedown', onDownload);
+    mainPin.style.left = 570 + 'px';
+    mainPin.style.top = 375 + 'px';
+  };
+  resetBtn.addEventListener('click', onReset);
+
+  var onSubmit = function () {
+    onReset();
     mainPin.style = 'left: 570px; top: 375px;';
     cardContainer.classList.add('map--faded');
 

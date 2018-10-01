@@ -66,4 +66,5 @@
     }
   };
   filterForm.addEventListener('change', window.debounce(onFilterChange));
+
 })();
