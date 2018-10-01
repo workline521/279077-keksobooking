@@ -14,7 +14,6 @@
 
   var onLoad = function (data) {
     window.mapData = data.slice(0, 5);
-    console.log(window.mapData);
     for (var i = 0; i < window.mapData.length; i++) {
       fragment.appendChild(window.pin.render(window.mapData[i]));
     }
