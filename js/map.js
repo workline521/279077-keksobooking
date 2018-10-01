@@ -13,6 +13,7 @@
 
   var onLoad = function (data) {
     window.mapData = data.slice(0, 5);
+    console.log(window.mapData);
     for (var i = 0; i < window.mapData.length; i++) {
       fragment.appendChild(window.pin.render(window.mapData[i]));
     }
@@ -48,7 +49,7 @@
     cardContainer.insertBefore(window.card.render(window.mapData[pinIndex]), insertBeforeThisElement);
     cardContainer.querySelector('article.map__card').querySelector('button.popup__close').addEventListener('click', function () {
       cardContainer.removeChild(cardContainer.querySelector('article.map__card'));
-      document.querySelector('.map__pin--active').classList.remove('map__pin--active');
+      cardContainer.querySelector('.map__pin--active').classList.remove('map__pin--active');
     });
     var pins = document.querySelectorAll('button.map__pin:not(.map__pin--main)');
     pins.forEach(function (it) {

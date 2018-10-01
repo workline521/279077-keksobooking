@@ -29,7 +29,7 @@
         return newPrice.offer.price < 10000;
 
       case 'middle':
-        return newPrice.offer.price > 10000 && newPrice.offer.price < 50000;
+        return newPrice.offer.price >= 10000 && newPrice.offer.price <= 50000;
 
       case 'high':
         return newPrice.offer.price > 50000;
