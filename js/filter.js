@@ -8,16 +8,15 @@
   var guests = filterForm.querySelector('#housing-guests');
   var features = filterForm.querySelector('#housing-features');
 
-  var removePins = function () {
+  var removeMapData = function () {
     var allPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
-    for (var i = 0; i < allPins.length; i++) {
-      allPins[i].remove();
-    }
-
+    allPins.forEach(function (it) {
+      it.remove();
+    });
     var allCards = document.querySelectorAll('.map__card');
-    for (var j = 0; j < allCards.length; j++) {
-      allCards[j].remove();
-    }
+    allCards.forEach(function (it) {
+      it.remove();
+    });
   };
 
   var typeFilter = function (newType) {
@@ -80,7 +79,7 @@
     var pinContainer = document.querySelector('.map__pins');
     var sortedPins = window.mapData.filter(typeFilter).filter(priceFilter).filter(guestsFilter).filter(roomsFilter).filter(featuresFilter);
     var fragment = document.createDocumentFragment();
-    removePins();
+    removeMapData();
     if (sortedPins.length) {
       for (var i = 0; i < sortedPins.length; i++) {
         fragment.appendChild(window.pin.render(sortedPins[i]));
@@ -95,4 +94,7 @@
     }
   };
   filterForm.addEventListener('change', window.debounce(onFilterChange));
+  window.filter = {
+    removeMapData: removeMapData
+  };
 })();

@@ -4,7 +4,9 @@
   var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
   var makeElement = function (tagName, elementClass, bemModificator) {
     var element = document.createElement(tagName);
-    element.classList.add(elementClass);
+    if (elementClass) {
+      element.classList.add(elementClass);
+    }
     if (bemModificator) {
       element.classList.add(elementClass + '--' + bemModificator);
     }
@@ -83,6 +85,7 @@
     return cardBody;
   };
   window.card = {
-    render: render
+    render: render,
+    makeElement: makeElement
   };
 })();
