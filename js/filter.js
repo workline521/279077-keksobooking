@@ -57,25 +57,6 @@
     });
   };
   var onFilterChange = function () {
-    var showFilteredCards = function (evt) {
-      var pinIndex = evt.currentTarget.dataset.index;
-      var card = document.querySelector('article.map__card');
-      if (card) {
-        document.querySelector('.map').removeChild(card);
-      }
-      document.querySelector('.map').insertBefore(window.card.render(sortedPins[pinIndex]), document.querySelector('.map__filters-container'));
-      document.addEventListener('keydown', window.map.closeCard);
-      document.querySelector('article.map__card').querySelector('button.popup__close').addEventListener('click', function () {
-        document.querySelector('.map').removeChild(document.querySelector('article.map__card'));
-        document.querySelector('.map__pin--active').classList.remove('map__pin--active');
-      });
-      var pins = document.querySelectorAll('button.map__pin:not(.map__pin--main)');
-      pins.forEach(function (it) {
-        it.classList.remove('map__pin--active');
-      });
-      evt.currentTarget.classList.add('map__pin--active');
-      document.addEventListener('keydown', window.map.closeCard);
-    };
     var pinContainer = document.querySelector('.map__pins');
     var sortedPins = window.mapData.filter(typeFilter).filter(priceFilter).filter(guestsFilter).filter(roomsFilter).filter(featuresFilter);
     var fragment = document.createDocumentFragment();
@@ -86,10 +67,10 @@
       }
       pinContainer.appendChild(fragment);
       var mapPins = document.querySelectorAll('button.map__pin:not(.map__pin--main)');
-      for (var j = 0; j < mapPins.length; j++) {
+      for (var j = 0; j < sortedPins.length; j++) {
         var mapPin = mapPins[j];
-        mapPin.dataset.index = j;
-        mapPin.addEventListener('click', showFilteredCards);
+        mapPin.dataset.index = sortedPins[j].id;
+        mapPin.addEventListener('click', window.map.showCard);
       }
     }
   };

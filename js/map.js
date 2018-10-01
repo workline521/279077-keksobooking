@@ -15,13 +15,15 @@
     window.mapData = data.slice(0, 5);
     for (var i = 0; i < window.mapData.length; i++) {
       fragment.appendChild(window.pin.render(window.mapData[i]));
+      window.mapData[i].id = i;
     }
     pinContainer.appendChild(fragment);
     var mapPins = document.querySelectorAll('button.map__pin:not(.map__pin--main)');
-    mapPins.forEach(function (it, index) {
-      it.dataset.index = index;
-      it.addEventListener('click', showCard);
-    });
+    for (var j = 0; j < window.mapData.length; j++) {
+      var mapPin = mapPins[j];
+      mapPin.dataset.index = window.mapData[j].id;
+      mapPin.addEventListener('click', showCard);
+    }
   };
   var onDownload = function () {
     window.backend.getData(onLoad, onSubmitError);
@@ -186,7 +188,7 @@
     evt.preventDefault();
   });
   window.map = {
-    closeCard: closeCard
+    showCard: showCard
   };
 })();
 
