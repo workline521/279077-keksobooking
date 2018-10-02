@@ -3,7 +3,7 @@
 (function () {
   var GET_URL = 'https://js.dump.academy/keksobooking/data';
   var POST_URL = 'https://js.dump.academy/keksobooking';
-  var CODES = {
+  var CODE = {
     SUCCESS: 200,
     MOVED: 302,
     BAD_REQUEST: 400,
@@ -18,22 +18,22 @@
       xhr.addEventListener('load', function () {
         var error;
         switch (xhr.status) {
-          case CODES.SUCCESS:
+          case CODE.SUCCESS:
             onLoad(xhr.response);
             break;
-          case CODES.MOVED:
+          case CODE.MOVED:
             error = 'Временно перемещено, попробуйте позже';
             break;
-          case CODES.BAD_REQUEST:
+          case CODE.BAD_REQUEST:
             error = 'Неверный запрос';
             break;
-          case CODES.UNAUTHORIZED:
+          case CODE.UNAUTHORIZED:
             error = 'Пользователь не авторизован';
             break;
-          case CODES.NOT_FOUND_ERROR:
+          case CODE.NOT_FOUND_ERROR:
             error = 'Ничего не найдено, попробуйте позже';
             break;
-          case CODES.SERVER_ERROR:
+          case CODE.SERVER_ERROR:
             error = 'Ошибка сервера';
             break;
           default:
