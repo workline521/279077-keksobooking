@@ -61,13 +61,14 @@
     var sortedPins = window.mapData.filter(typeFilter).filter(priceFilter).filter(guestsFilter).filter(roomsFilter).filter(featuresFilter);
     var fragment = document.createDocumentFragment();
     removeMapData();
-    if (sortedPins.length) {
-      for (var i = 0; i < sortedPins.length; i++) {
+    var len = sortedPins.length > 5 ? 5 : sortedPins.length;
+    if (len) {
+      for (var i = 0; i < len; i++) {
         fragment.appendChild(window.pin.render(sortedPins[i]));
       }
       pinContainer.appendChild(fragment);
       var mapPins = document.querySelectorAll('button.map__pin:not(.map__pin--main)');
-      for (var j = 0; j < sortedPins.length; j++) {
+      for (var j = 0; j < len; j++) {
         var mapPin = mapPins[j];
         mapPin.dataset.index = sortedPins[j].id;
         mapPin.addEventListener('click', window.map.showCard);

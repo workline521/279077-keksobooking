@@ -8,18 +8,20 @@
   var mainPin = document.querySelector('.map__pin--main');
   var fieldsets = document.querySelectorAll('fieldset');
   var selects = document.querySelectorAll('select');
-  var addressInput = document.querySelector('#address');
   var fragment = document.createDocumentFragment();
 
   var onLoad = function (data) {
-    window.mapData = data.slice(0, 5);
-    for (var i = 0; i < window.mapData.length; i++) {
+    window.mapData = data;
+    window.mapData.forEach(function (it, index) {
+      it.id = index;
+    });
+    var len = window.mapData.length > 5 ? 5 : window.mapData.length;
+    for (var i = 0; i < len; i++) {
       fragment.appendChild(window.pin.render(window.mapData[i]));
-      window.mapData[i].id = i;
     }
     pinContainer.appendChild(fragment);
     var mapPins = document.querySelectorAll('button.map__pin:not(.map__pin--main)');
-    for (var j = 0; j < window.mapData.length; j++) {
+    for (var j = 0; j < len; j++) {
       var mapPin = mapPins[j];
       mapPin.dataset.index = window.mapData[j].id;
       mapPin.addEventListener('click', showCard);
@@ -40,7 +42,7 @@
       adForm.classList.remove('ad-form--disabled');
     }
   });
-
+  // открытие, закрытие карточек
   var showCard = function (evt) {
     var pinIndex = evt.currentTarget.dataset.index;
     var card = document.querySelector('article.map__card');
@@ -68,8 +70,9 @@
     }
   };
 
-  // высота карточки + псевдоэлемент after
-  var pinHeight = mainPin.offsetHeight + 17;
+  // запись координат карточки в инпут
+  var addressInput = document.querySelector('#address');
+  var pinHeight = mainPin.offsetHeight + 17; // высота карточки + псевдоэлемент after
   var pinWidth = Math.floor(mainPin.offsetWidth / 2);
   var getAddress = function () {
     var locX = parseInt(mainPin.style.left, 10);
@@ -146,8 +149,8 @@
     mainPin.style = 'left: 570px; top: 375px;';
   };
   resetBtn.addEventListener('click', onReset);
-  //  отправка данных на сервак
 
+  //  показ и скрытие оштбок при отправке данных на сервак
   var main = document.querySelector('main');
 
   var showSuccess = function () {
