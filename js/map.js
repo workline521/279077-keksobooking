@@ -141,6 +141,7 @@
         it.remove();
       });
     }
+    adForm.querySelector('.ad-form-header__preview img').src = 'img/muffin-grey.svg';
     window.form.disableInputs(fieldsets);
     window.form.disableInputs(selects);
     cardContainer.classList.add('map--faded');
@@ -150,7 +151,7 @@
   };
   resetBtn.addEventListener('click', onReset);
 
-  //  показ и скрытие оштбок при отправке данных на сервак
+  //  показ и скрытие ошибок при отправке данных на сервак
   var main = document.querySelector('main');
 
   var showSuccess = function () {
