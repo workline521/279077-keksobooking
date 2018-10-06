@@ -42,7 +42,7 @@
       adForm.classList.remove('ad-form--disabled');
     }
   });
-  // открытие, закрытие карточек
+
   var showCard = function (evt) {
     var pinIndex = evt.currentTarget.dataset.index;
     var card = document.querySelector('article.map__card');
@@ -70,9 +70,9 @@
     }
   };
 
-  // запись координат карточки в инпут
+
   var addressInput = document.querySelector('#address');
-  var pinHeight = mainPin.offsetHeight + 17; // высота карточки + псевдоэлемент after
+  var pinHeight = mainPin.offsetHeight + 17;
   var pinWidth = Math.floor(mainPin.offsetWidth / 2);
   var getAddress = function () {
     var locX = parseInt(mainPin.style.left, 10);
@@ -84,8 +84,6 @@
     addressInput.value = getAddress();
   });
 
-  //  драгэндроп для главной метки
-
   mainPin.addEventListener('mousedown', function (dragEvt) {
     dragEvt.preventDefault();
     var startCoords = {
@@ -95,8 +93,8 @@
     var onMouseMove = function (moveEvt) {
       moveEvt.preventDefault();
       var customY = moveEvt.clientY;
-      if (customY < 100) {
-        customY = 100;
+      if (customY < 130) {
+        customY = 130;
       } else if (customY > 630) {
         customY = 630;
       }
@@ -113,8 +111,8 @@
       } else if (mainPin.offsetLeft - shift.x >= 1138) {
         mainPin.style.left = 1138 + 'px';
       }
-      if (mainPin.offsetTop - shift.y < 100) {
-        mainPin.style.top = 100 + 'px';
+      if (mainPin.offsetTop - shift.y < 130) {
+        mainPin.style.top = 130 + 'px';
 
       } else if (mainPin.offsetTop - shift.y > 630) {
         mainPin.style.top = 630 + 'px';
@@ -151,7 +149,7 @@
   };
   resetBtn.addEventListener('click', onReset);
 
-  //  показ и скрытие ошибок при отправке данных на сервак
+
   var main = document.querySelector('main');
 
   var showSuccess = function () {
