@@ -19,11 +19,11 @@
     });
   };
 
-  var typeFilter = function (newType) {
+  var filterByType = function (newType) {
     return type.value === 'any' || newType.offer.type === type.value;
   };
 
-  var priceFilter = function (newPrice) {
+  var filterByPrice = function (newPrice) {
     switch (price.value) {
       case 'low':
         return newPrice.offer.price < 10000;
@@ -39,15 +39,15 @@
     }
   };
 
-  var guestsFilter = function (newGuests) {
+  var filterByGuests = function (newGuests) {
     return (guests.value === newGuests.offer.guests.toString()) || (guests.value === 'any');
   };
 
-  var roomsFilter = function (newRooms) {
+  var filterByRooms = function (newRooms) {
     return rooms.value === 'any' || newRooms.offer.rooms.toString() === rooms.value;
   };
 
-  var featuresFilter = function (newFeatures) {
+  var filterByFeatures = function (newFeatures) {
     var checkedElements = features.querySelectorAll('input[type=checkbox]:checked');
     var selectedFeatures = [].map.call(checkedElements, function (item) {
       return item.value;
@@ -58,7 +58,7 @@
   };
   var onFilterChange = function () {
     var pinContainer = document.querySelector('.map__pins');
-    var sortedPins = window.mapData.filter(typeFilter).filter(priceFilter).filter(guestsFilter).filter(roomsFilter).filter(featuresFilter);
+    var sortedPins = window.mapData.filter(filterByType).filter(filterByPrice).filter(filterByGuests).filter(filterByRooms).filter(filterByFeatures);
     var fragment = document.createDocumentFragment();
     removeMapData();
     var len = sortedPins.length > 5 ? 5 : sortedPins.length;

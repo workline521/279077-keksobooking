@@ -2,14 +2,14 @@
 (function () {
 
   var enableInputs = function (inputsList) {
-    for (var i = 0; i < inputsList.length; i++) {
-      inputsList[i].disabled = false;
-    }
+    inputsList.forEach(function (it) {
+      it.disabled = false;
+    });
   };
   var disableInputs = function (inputsList) {
-    for (var i = 0; i < inputsList.length; i++) {
-      inputsList[i].disabled = true;
-    }
+    inputsList.forEach(function (it) {
+      it.disabled = true;
+    });
   };
 
   var form = document.querySelector('.ad-form');

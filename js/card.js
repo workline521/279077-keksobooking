@@ -29,12 +29,7 @@
 
   var showRoomsAndGuests = function (roomsNumber, guestsNumber) {
     var roomText = ' комнаты для ';
-    var guestText = ' гостей';
-    if (guestsNumber === 1) {
-      guestText = ' гостя';
-    } else {
-      guestText = ' гостей';
-    }
+    var guestText = guestsNumber === 1 ? ' гостя' : ' гостей';
     if (roomsNumber === 1) {
       roomText = ' комната для ';
     } else if (roomsNumber > 1 && roomsNumber < 5) {
@@ -47,11 +42,7 @@
 
   var render = function (mapCard) {
     var cardBody = cardTemplate.cloneNode(true);
-    if (mapCard.author.avatar) {
-      cardBody.querySelector('img').src = mapCard.author.avatar;
-    } else {
-      cardBody.querySelector('img').src = 'img/muffin-grey.svg';
-    }
+    cardBody.querySelector('img').src = mapCard.author.avatar ? mapCard.author.avatar : 'img/muffin-grey.svg';
     cardBody.querySelector('.popup__title').textContent = mapCard.offer.title;
     cardBody.querySelector('.popup__text--address').textContent = mapCard.offer.address;
     cardBody.querySelector('.popup__text--price').textContent = mapCard.offer.price + ' ₽/ночь';
@@ -60,13 +51,12 @@
     var checkIn = mapCard.offer.checkin;
     var checkOut = mapCard.offer.checkout;
     cardBody.querySelector('.popup__text--time').textContent = 'Заезд после ' + checkIn + ', выезд до' + checkOut;
-    var liContainer = cardBody.querySelector('.popup__features');
-    var li = cardBody.querySelectorAll('.popup__feature');
-    for (var i = 0; i < li.length; i++) {
-      liContainer.removeChild(li[i]);
-    }
-    var features = mapCard.offer.features;
     var featuresContainer = cardBody.querySelector('.popup__features');
+    var emptyTemplateFeatures = cardBody.querySelectorAll('.popup__feature');
+    emptyTemplateFeatures.forEach(function (it) {
+      featuresContainer.removeChild(it);
+    });
+    var features = mapCard.offer.features;
     if (features.length !== 0) {
       for (var j = 0; j < features.length; j++) {
         var newElement = makeElement('li', 'popup__feature', features[j]);

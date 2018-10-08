@@ -81,9 +81,12 @@
   };
 
   mainPin.addEventListener('mousemove', function () {
-    addressInput.value = getAddress();
+    addressInput.value = cardContainer.classList.contains('map--faded') ? '' : getAddress();
   });
-
+  var MIN_Y = 130;
+  var MAX_Y = 630;
+  var MIN_X = 1;
+  var MAX_X = 1135;
   mainPin.addEventListener('mousedown', function (dragEvt) {
     dragEvt.preventDefault();
     var startCoords = {
@@ -92,40 +95,41 @@
     };
     var onMouseMove = function (moveEvt) {
       moveEvt.preventDefault();
-      var customY = moveEvt.clientY;
-      if (customY < 130) {
-        customY = 130;
-      } else if (customY > 630) {
-        customY = 630;
-      }
+
       var shift = {
         x: startCoords.x - moveEvt.clientX,
-        y: startCoords.y - customY
+        y: startCoords.y - moveEvt.clientY
       };
       startCoords = {
         x: moveEvt.clientX,
-        y: customY
+        y: moveEvt.clientY
       };
-      if (mainPin.offsetLeft - shift.x <= 0) {
-        mainPin.style.left = 0 + 'px';
-      } else if (mainPin.offsetLeft - shift.x >= 1138) {
-        mainPin.style.left = 1138 + 'px';
-      }
-      if (mainPin.offsetTop - shift.y < 130) {
-        mainPin.style.top = 130 + 'px';
 
-      } else if (mainPin.offsetTop - shift.y > 630) {
-        mainPin.style.top = 630 + 'px';
+      var limitY;
+      var limitX;
+      if (mainPin.offsetTop < MIN_Y) {
+        limitY = MIN_Y;
+      } else if (mainPin.offsetTop > MAX_Y) {
+        limitY = MAX_Y;
+      } else {
+        limitY = mainPin.offsetTop - shift.y;
       }
-      mainPin.style.top = (mainPin.offsetTop - shift.y) + 'px';
-      mainPin.style.left = (mainPin.offsetLeft - shift.x) + 'px';
+      if (mainPin.offsetLeft < MIN_X) {
+        limitX = MIN_X;
+      } else if (mainPin.offsetLeft > MAX_X) {
+        limitX = MAX_X;
+      } else {
+        limitX = mainPin.offsetLeft - shift.x;
+      }
+      mainPin.style.top = limitY + 'px';
+      mainPin.style.left = limitX + 'px';
     };
     var onMouseUp = function (upEvt) {
       upEvt.preventDefault();
-      cardContainer.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
     };
-    cardContainer.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
   });
 
