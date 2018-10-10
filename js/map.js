@@ -15,13 +15,13 @@
     window.mapData.forEach(function (it, index) {
       it.id = index;
     });
-    var len = window.mapData.length > 5 ? 5 : window.mapData.length;
-    for (var i = 0; i < len; i++) {
+    var limitedPinsLength = window.mapData.length > 5 ? 5 : window.mapData.length;
+    for (var i = 0; i < limitedPinsLength; i++) {
       fragment.appendChild(window.pin.render(window.mapData[i]));
     }
     pinContainer.appendChild(fragment);
     var mapPins = document.querySelectorAll('button.map__pin:not(.map__pin--main)');
-    for (var j = 0; j < len; j++) {
+    for (var j = 0; j < limitedPinsLength; j++) {
       var mapPin = mapPins[j];
       mapPin.dataset.index = window.mapData[j].id;
       mapPin.addEventListener('click', showCard);
@@ -80,55 +80,70 @@
     return (locX + pinWidth) + ',' + (locY + pinHeight);
   };
 
-  mainPin.addEventListener('mousemove', function () {
-    addressInput.value = cardContainer.classList.contains('map--faded') ? '' : getAddress();
-  });
-  var MIN_Y = 130;
-  var MAX_Y = 630;
-  var MIN_X = 1;
-  var MAX_X = 1135;
   mainPin.addEventListener('mousedown', function (dragEvt) {
     dragEvt.preventDefault();
+
+    var mainPinHalfWidth = mainPin.offsetWidth / 2;
+    var mainPinHalfHeight = mainPin.offsetHeight / 2;
     var startCoords = {
       x: dragEvt.clientX,
       y: dragEvt.clientY
     };
+
     var onMouseMove = function (moveEvt) {
       moveEvt.preventDefault();
 
+      var mapRect = cardContainer.getBoundingClientRect();
+      var minX = mapRect.x + mainPinHalfWidth;
+      var maxX = mapRect.x + mapRect.width - mainPinHalfWidth;
+      var minY = mapRect.y + mainPinHalfHeight + 130;
+      var maxY = mapRect.y + mapRect.height - mainPinHalfHeight - 45;
       var shift = {
         x: startCoords.x - moveEvt.clientX,
         y: startCoords.y - moveEvt.clientY
       };
-      startCoords = {
-        x: moveEvt.clientX,
-        y: moveEvt.clientY
-      };
+      if (moveEvt.clientX < minX) {
+        startCoords.x = minX;
+      } else if (moveEvt.clientX > maxX) {
+        startCoords.x = maxX;
+      } else {
+        startCoords.x = moveEvt.clientX;
+      }
+      if (moveEvt.clientY < minY) {
+        startCoords.y = minY;
+      } else if (moveEvt.clientY > maxY) {
+        startCoords.y = maxY;
+      } else {
+        startCoords.y = moveEvt.clientY;
+      }
 
-      var limitY;
-      var limitX;
-      if (mainPin.offsetTop < MIN_Y) {
-        limitY = MIN_Y;
-      } else if (mainPin.offsetTop > MAX_Y) {
-        limitY = MAX_Y;
+      var x = mainPin.offsetLeft - shift.x;
+      var y = mainPin.offsetTop - shift.y;
+
+      if (x < 0) {
+        mainPin.style.left = 0 + 'px';
+      } else if (x > 1138) {
+        mainPin.style.left = 1138 + 'px';
       } else {
-        limitY = mainPin.offsetTop - shift.y;
+        mainPin.style.left = x + 'px';
       }
-      if (mainPin.offsetLeft < MIN_X) {
-        limitX = MIN_X;
-      } else if (mainPin.offsetLeft > MAX_X) {
-        limitX = MAX_X;
+      if (y < 130) {
+        mainPin.style.top = 130 + 'px';
+      } else if (y > 630) {
+        mainPin.style.top = 630 + 'px';
       } else {
-        limitX = mainPin.offsetLeft - shift.x;
+        mainPin.style.top = y + 'px';
       }
-      mainPin.style.top = limitY + 'px';
-      mainPin.style.left = limitX + 'px';
+      addressInput.value = getAddress();
     };
+
     var onMouseUp = function (upEvt) {
       upEvt.preventDefault();
+      addressInput.value = getAddress();
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
     };
+
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
   });
